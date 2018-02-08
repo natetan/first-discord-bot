@@ -47,7 +47,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             let [age, sex, location] = args;
             bot.sendMessage({
                 to: userID,
-                message: `Hello ${user.username}, I see you're a ${age} year old ${sex} from ${location}. Wanna skate?`
+                message: `Hello ${user}, I see you're a ${age} year old ${sex} from ${location}. Wanna skate?`
             })
         }
      }
