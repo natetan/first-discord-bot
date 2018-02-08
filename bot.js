@@ -1,6 +1,8 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
+var helpers = require('./helpers.js');
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -36,7 +38,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         } else if (command == 'cl') {
             bot.sendMessage({
                 to: channelID,
-                message: '```JavaScript' + '\nconsole.log(' + args.toString() + ')```'
+                message: '```JavaScript' + '\nconsole.log(' + helpers.toString(args, ' ', false) + ')```'
             })
         } else if (command == 'roles') {
             bot.sendMessage({
