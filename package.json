@@ -1,0 +1,23 @@
+{
+  "name": "skate-dev",
+  "version": "1.0.0",
+  "description": "Let's learn how to make a bot!",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yulongtan/first-discord-bot.git"
+  },
+  "author": "Yulong Tan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yulongtan/first-discord-bot/issues"
+  },
+  "homepage": "https://github.com/yulongtan/first-discord-bot#readme",
+  "dependencies": {
+    "discord.io": "github:woor/discord.io#gateway_v6",
+    "winston": "^2.4.0"
+  }
+}
