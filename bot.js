@@ -7,6 +7,8 @@ const helpers = require('./helpers.js');
 const languages = require('./languages.js')
 const service = require('./service.js');
 
+var CHANNEL_ID = 'null;'
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -24,7 +26,11 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    const desc = 'I should definitely be studying rather than making a Discord bot...';
+    CHANNEL_ID = channelID;
+    var desc = 'I should definitely be studying rather than making a Discord bot...';
+    if (user == 'vocharlie') {
+        desc = 'All me guy. I am the tank, healer, deeps, AND moral support.'
+    }
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
     const prefix = '?';
@@ -51,17 +57,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             })
         } else if (command == 'asl') {
             let [age, sex, location] = args;
-            bot.sendMessage({
-                to: userID,
-                message: `Hello ${user}, I see you're a ${age} year old ${sex} from ${location}. Wanna skate?`
-            })
+            if (age && sex && location) {
+                bot.sendMessage({
+                    to: userID,
+                    message: `Hello ${user}, I see you're a ${age} year old ${sex} from ${location}. Wanna skate?`
+                });
+            }
         } else if (command == 'translate') {
             // syntax: command targetLang text
-            var target = args[0]
+            var targetLang = args[0]
+            if (targetLang.toLowerCase() == 'chinese') {
+                targetLang = 'chinese-simplified';
+            }
             args.shift();
             var textToTranslate = helpers.toString(args, ' ', false);
 
-            translate(textToTranslate, {to: languages.getCode(target)}).then(res => {
+            translate(textToTranslate, {to: languages.getCode(targetLang)}).then(res => {
                 bot.sendMessage({
                     to:channelID,
                     message: res.text
@@ -75,7 +86,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             });
         } else if (command == 'define') {
             var word = helpers.toString(args, ' ', false);
-            service.define(word, 'en');
+            // service.define(word, 'en');
             bot.sendMessage({
                 to:channelID,
                 message: 'Define is currently broken and does not work'
@@ -83,3 +94,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
      }
 });
+
+function messageChannel(message) {
+    console.log('message channel called');
+    bot.messageChannel({
+        to: CHANNEL_ID,
+        message: message
+    });
+}
+
+module.exports = {
+    messageChannel: messageChannel
+}
