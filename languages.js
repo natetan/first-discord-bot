@@ -124,10 +124,14 @@ function getCode(desiredLang) {
     }
     desiredLang = desiredLang.toLowerCase();
 
+    // If the ISO 639-1 code itself is given, return it if it exists
     if (langs[desiredLang]) {
         return desiredLang;
     }
 
+    // Gets the ISO 639-1 code associated with the desired language
+    // We create an array of the keys, and then filter it by a function
+    // Returns an array of size 1
     var keys = Object.keys(langs).filter(function (key) {
         if (typeof langs[key] !== 'string') {
             return false;
