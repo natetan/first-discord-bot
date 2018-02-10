@@ -2,12 +2,14 @@ const https = require('https');
 
 const auth = require('./auth.json');
 
+const bot = require('./bot.js');
+
 function define(word = 'forgot', lang = 'en') {
 	word = decodeURIComponent(word.toLowerCase().trim());
 	console.log(word);
 	const options = {
 		host: 'od-api.oxforddictionaries.com',
-		path: `/api/v1/entries/${lang}/${word}/`,
+		path: `/api/v1/entries/${lang}/${word}`,
 		method: 'GET',
 		port: 443,
 		headers: {
@@ -24,7 +26,8 @@ function define(word = 'forgot', lang = 'en') {
 		});
 
 		res.on('end', function() {
-			console.log(data);
+			// console.log(data);
+			bot.messageChannel(data);
 		});
 
 	}).on('error', function(err) {
