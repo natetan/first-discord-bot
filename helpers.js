@@ -7,7 +7,7 @@ function toString(arr, splitter = ', ', braces = true) {
 		result += splitter + arr[i]
 	}
 	if (braces) {
-		result = `[$(result)]`
+		result = `[${result}]`
 	}
 	return result;
 }

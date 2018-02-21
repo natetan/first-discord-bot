@@ -6,6 +6,7 @@ const translate = require('google-translate-api');
 const helpers = require('./helpers.js');
 const languages = require('./languages.js')
 const service = require('./service.js');
+const game = require('./game.js');
 
 var CHANNEL_ID = 'null;'
 
@@ -90,6 +91,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             bot.sendMessage({
                 to:channelID,
                 message: 'Define is currently broken and does not work'
+            })
+        } else if (command == 'game') {
+            var gameCommand = args.shift().toLowerCase();
+            var rest = helpers.toString(args, ' ');
+            var gameMessage = '';
+            if (gameCommand == 'getplayers') {
+                gameMessage = game.getPlayers(function(obj) {
+                    return obj;
+                });
+            }
+            bot.sendMessage({
+                to:channelID,
+                message: gameMessage
             })
         }
      }
