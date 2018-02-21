@@ -97,9 +97,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             var rest = helpers.toString(args, ' ');
             var gameMessage = '';
             if (gameCommand == 'getplayers') {
-                gameMessage = game.getPlayers(function(obj) {
-                    return obj;
-                });
+                gameMessage = game.getPlayers();
+                console.log('Game message: ' + gameMessage);
             }
             bot.sendMessage({
                 to:channelID,
